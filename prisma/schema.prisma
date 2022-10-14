@@ -11,8 +11,21 @@ datasource db {
 }
 
 model User {
-  id        String   @id @default(uuid())
-  name      String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         String   @id @default(uuid())
+  email      String   @unique
+  name       String
+  password   String
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+  asset      Asset?
+}
+
+model Asset {
+  id      String @id @default(uuid())
+  btc     Int    @default(0)
+  eth     Int    @default(0)
+  bnb     Int    @default(0)
+  usdt    Int    @default(0)
+  user    User   @relation(fields: [user_id], references: [id])
+  user_id String @unique
 }
