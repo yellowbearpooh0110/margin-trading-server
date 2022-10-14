@@ -6,11 +6,11 @@ import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
 
+dotenv.config({ path: path.resolve(__dirname, '../../.env') });
+
 import user from './route/user';
 import auth from './route/auth';
 import passport from 'passport';
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 import './passport';
 
