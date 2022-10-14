@@ -17,7 +17,7 @@ const app = express();
 
 const port = 8080; // default port to listen
 
-dotenv.config();
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
