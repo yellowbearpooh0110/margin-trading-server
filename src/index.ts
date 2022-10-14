@@ -5,7 +5,6 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 
-import index from './route/index';
 import user from './route/user';
 import auth from './route/auth';
 
@@ -31,10 +30,17 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 const router = express.Router();
 app.use('/api', router);
-router.use('/', index);
 router.use('/user', passport.authenticate('jwt', { session: false }), user);
 router.use('/auth', auth);
-
+app.use(
+  '/static',
+  express.static(path.join(__dirname, '../../../client/build/static'))
+);
+app.get('*', (req, res) => {
+  res.sendFile('index.html', {
+    root: path.join(__dirname, '../../../client/build/'),
+  });
+});
 // catch 404 and forward to error handler
 // app.use((req, res, next) => {
 //   const err = new Error('Not Found');
