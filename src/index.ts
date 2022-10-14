@@ -4,6 +4,7 @@ import favicon from 'serve-favicon';
 import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
+import dotenv from 'dotenv';
 
 import user from './route/user';
 import auth from './route/auth';
@@ -15,6 +16,8 @@ import './passport';
 const app = express();
 
 const port = 8080; // default port to listen
+
+dotenv.config();
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
