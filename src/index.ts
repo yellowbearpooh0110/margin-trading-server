@@ -8,16 +8,15 @@ import dotenv from 'dotenv';
 
 import user from './route/user';
 import auth from './route/auth';
-
 import passport from 'passport';
+
+dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 import './passport';
 
 const app = express();
 
 const port = 8080; // default port to listen
-
-dotenv.config({ path: path.resolve(__dirname, '../.env') });
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
