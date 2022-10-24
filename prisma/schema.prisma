@@ -14,6 +14,7 @@ model User {
   id         String   @id @default(uuid())
   email      String   @unique
   name       String
+  avatar     String?
   password   String
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -26,6 +27,6 @@ model Asset {
   eth     Int    @default(0)
   bnb     Int    @default(0)
   usdt    Int    @default(0)
-  user    User   @relation(fields: [user_id], references: [id])
+  user    User   @relation(fields: [user_id], references: [id], onDelete: Cascade)
   user_id String @unique
 }

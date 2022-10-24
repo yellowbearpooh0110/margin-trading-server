@@ -4,7 +4,7 @@ import bcryptjs from 'bcryptjs';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
-import prisma from '../../prisma';
+import * as UserService from '../service/user.service';
 
 export const CreateUser = async (req: Request, res: Response) => {
   const schema = Joi.object<{
@@ -35,14 +35,10 @@ export const CreateUser = async (req: Request, res: Response) => {
   else {
     try {
       const { password: passwordFromDB, ...userWithoutPassword } =
-        await prisma.user.create({
-          data: { password: bcryptjs.hashSync(password), ..._validateRes },
+        await UserService.CreateUser({
+          password: bcryptjs.hashSync(password),
+          ..._validateRes,
         });
-      await prisma.asset.create({
-        data: {
-          user_id: userWithoutPassword.id,
-        },
-      });
       res.send({ success: true, user: userWithoutPassword });
     } catch (dbError) {
       res.status(500).json({ dbError });

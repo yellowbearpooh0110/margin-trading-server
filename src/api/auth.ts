@@ -5,9 +5,9 @@ import * as Middleware from '../middleware';
 
 const router = express.Router();
 /* POST login. */
-router.post('/login', UserController.AuthenticateUser);
+// router.post('/login', UserController.AuthenticateUser);
 
 /* POST register. */
-router.post('/register', UserController.CreateUser);
+// router.post('/register', UserController.CreateUser);
 
 export default router;

@@ -5,17 +5,29 @@ import logger from 'morgan';
 import cookieParser from 'cookie-parser';
 import bodyParser from 'body-parser';
 import dotenv from 'dotenv';
+import passport from 'passport';
+import session from 'express-session';
+import cors from 'cors';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
-import user from './route/user';
-import auth from './route/auth';
-import passport from 'passport';
+import api from './api';
+import oauth from './oauth';
 
 import './passport';
 
 const app = express();
 
+app.use(
+  session({
+    resave: false,
+    saveUninitialized: true,
+    secret: process.env.SESSION_SECRET,
+  })
+);
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(cors());
 const port = 8080; // default port to listen
 
 // view engine setup
@@ -30,10 +42,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
-const router = express.Router();
-app.use('/api', router);
-router.use('/user', passport.authenticate('jwt', { session: false }), user);
-router.use('/auth', auth);
+app.use('/api', api);
+app.use('/oauth', oauth);
+
 app.use(
   '/static',
   express.static(path.join(__dirname, '../../../client/build/static'))
