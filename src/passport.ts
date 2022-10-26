@@ -7,6 +7,7 @@ import { Strategy as GoogleStrategy } from 'passport-google-oauth20';
 // import prisma from '../prisma';
 import { User } from '@prisma/client';
 import * as UserSerivce from './service/user.service';
+import { appUrl } from './config';
 
 passport.use(
   new LocalStrategy(
@@ -41,7 +42,7 @@ passport.use(
     {
       clientID: process.env.GOOGLE_CLIENT_ID,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
-      callbackURL: 'http://localhost:8080/oauth/google/callback',
+      callbackURL: `${appUrl}oauth/google/callback`,
     },
     async (accessToken, refreshToken, profile, done) => {
       try {
