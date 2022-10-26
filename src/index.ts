@@ -8,6 +8,7 @@ import dotenv from 'dotenv';
 import passport from 'passport';
 import session from 'express-session';
 import cors from 'cors';
+import http from 'http';
 
 dotenv.config({ path: path.resolve(__dirname, '../../.env') });
 
@@ -15,6 +16,7 @@ import api from './api';
 import oauth from './oauth';
 
 import './passport';
+import initializeSocket from './socket';
 
 const app = express();
 
@@ -72,9 +74,10 @@ app.get('*', (req, res) => {
 //   res.render('error');
 // });
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
   // tslint:disable-next-line:no-console
   console.log(`server started at http://localhost:${port}`);
 });
+initializeSocket(server);
 
 export default app;

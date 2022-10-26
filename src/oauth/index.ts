@@ -32,7 +32,7 @@ router.get(
 
 router.get('/google/callback_success', (req, res) => {
   const token = jwt.sign(req.user, process.env.JWT_SECRET, {
-    expiresIn: 86400,
+    expiresIn: '1 day',
   });
   res.redirect(`http://localhost:3000/signin?token=${token}`);
 });

@@ -27,7 +27,7 @@ export const UpdateAsset = ({
   user_id,
   ...restInput
 }: UpdateAssetInputType) => {
-  const keys = Object.keys(restInput) as Array<UpdateAssetDataKeyType>;
+  const keys = Object.keys(restInput) as UpdateAssetDataKeyType[];
   const updateData: UpdateAssetDataType = {};
   for (const key of keys) {
     updateData[key] = restInput[key]
