@@ -1,6 +1,7 @@
-import express, { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import passport from 'passport';
 import jwt from 'jsonwebtoken';
+import { appUrl } from '../config';
 
 const router = express.Router();
 
@@ -34,7 +35,7 @@ router.get('/google/callback_success', (req, res) => {
   const token = jwt.sign(req.user, process.env.JWT_SECRET, {
     expiresIn: '1 day',
   });
-  res.redirect(`http://localhost:3000/signin?token=${token}`);
+  res.redirect(`${appUrl}signin?token=${token}`);
 });
 
 router.get('/google/callback_fail', (req, res) => {
