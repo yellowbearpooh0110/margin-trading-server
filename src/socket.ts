@@ -3,6 +3,12 @@ import 'colors';
 import { IncomingMessage, Server, ServerResponse } from 'http';
 import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 
+type DepositRequestType = {
+  user_id: string;
+  token_name: string;
+  amount: string;
+};
+
 const initializeSocket = (
   server: Server<typeof IncomingMessage, typeof ServerResponse>
 ) => {
@@ -37,6 +43,13 @@ const initializeSocket = (
       //   text: `${p_user.username} has joined the chat`,
       // });
     });
+
+    socket.on(
+      'deposit',
+      ({ user_id, token_name, amount }: DepositRequestType) => {
+        socket.emit('success');
+      }
+    );
 
     // user sending message
     socket.on('chat', (text) => {

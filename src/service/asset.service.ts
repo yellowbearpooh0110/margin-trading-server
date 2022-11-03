@@ -53,10 +53,10 @@ export const UpdateAsset = ({
 // export const GetAssetById = ({ id }: GetAssetByIdInputType) =>
 //   prisma.asset.findUnique({ where: { id } });
 
-// Get Asset By Email Service
+// Get Asset By UserId Service
 export type GetAssetByUserIdInputType = {
   user_id: string;
 };
 
-export const GetAssetByEmail = ({ user_id }: GetAssetByUserIdInputType) =>
+export const GetAssetByUserId = ({ user_id }: GetAssetByUserIdInputType) =>
   prisma.asset.findUnique({ where: { user_id } });
